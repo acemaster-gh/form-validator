@@ -1,4 +1,5 @@
 
+// 1. DOM OBJECT
 
 const DOM = {
 
@@ -8,17 +9,17 @@ const DOM = {
    password:                document.querySelector('#password'), 
    confirmPassword:         document.querySelector('#confirm-password'), 
    usernameError:           document.querySelector('#username-error'), 
-   emailError:              document.querySelector('#form'), 
+   emailError:              document.querySelector('#email-error'), 
    passwordError:           document.querySelector('#password-error'), 
    confirmPasswordError:    document.querySelector('#confirm-password-error'), 
-    
+   passwordCharacterMessage:document.querySelector('#password-character-message'),
 };
 
 // 2. FUNCTIONS
 
 function validateUsername() {
-    if (DOM.username.value.trim().lenght < 2) {
-        DOM.username.textContent = 'Name must be at least 2 characters';
+    if (DOM.username.value.trim().length < 2) {
+        DOM.usernameError.textContent = 'Name must be at least 2 characters';
         return false;
     }
     DOM.usernameError.textContent = '';
@@ -27,7 +28,7 @@ function validateUsername() {
 }
  
 function validateEmail() {
-    const valid =  ~`/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(DOM.email.value);
+    const valid =  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(DOM.email.value);
     if (!value) {
         DOM.emailError.textContent = 'Enter a valid email address';
         return false;
@@ -38,15 +39,40 @@ function validateEmail() {
 }
 
 function validatePassword() {
-    const valid =
-    !@#$%^&*()_+|-=\[];',./{}:"<>?1234567890abcdefghijklmnopqrstuvwsyzABCDEFGHIJKLMNOPQRSTUWXYZ.test(DOM.password.value);
-    if (!valid) {
-        DOM.passwordError.textContent = 'Password can only be Symbols, Numbers and Alphabets';
+    
+    if (DOM.password.value.length < 8){
+        DOM.confirmError.textContent = 'Password should be at least 8 characters.';
         return false;
+    }
 
-}
 DOM.emailError.textContent = '';
 return true;
-
-
 }
+
+
+function validateConfirmPassword() {
+    if (DOM.password.value !== DOM.confirmPassword.value) {
+        DOM.confirmPasswordError.textContent = "Your passwords don't match." 
+        return false;
+
+    }
+    DOM.confirmPasswordError.textContent = '';
+    return false;
+}
+
+// 3. EVENT LISTENERS
+
+DOM.username.addEventListener('input', validateUsername);
+DOM.email.addEventListener('input', validateEmail);
+DOM.password.addEventListener('input', validatePassword);
+DOM.confirmPassword.addEventListener('input', validateConfirmPassword);
+
+DOM.form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  
+  const valid = validateUsername() & validateEmail() & validatePassword() & validateConfirmPassword();
+  
+  if (valid) {
+    alert('Account created!');
+  }
+});
