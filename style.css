@@ -1,7 +1,84 @@
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+:root {
+
+    /* =============== COLORS =============== */
+
+    /* backgrounds */
+    --bg-main: #0f172a;
+    --bg-card: #1e293b;
+    --bg-input: #334155;
+    --bg-input-focus: #3b4b63;
+
+    /* text */
+    --text-main: #f8fafc;
+    --text-secondary: #cbd5e1;
+    --text-muted: #94a3b8;
+
+    /* primary accent */
+    --primary: #6366f1;
+    --primary-hover: #4f46e5;
+    --primary-light: #818cf8;
+
+    /* borders */
+    --border: #475569;
+    --border-focus: #818cf8;
+
+    /* validation colors */
+    --success: #22c55e;
+    --success-bg: #052e16;
+
+    --error: #ef4444;
+    --error-bg: #450a0a;
+
+    --warning: #f59e0b;
+
+    /* shadows */
+    --shadow-main: 0 10px 25px rgba(0, 0, 0, 0.25);
+    --shadow-focus: 0 0 0 4px rgba(99, 102, 241, 0.2);
+
+    /* =============== TYPOGRAPHY =============== */
+
+    --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    --fs-xs: 0.75rem;
+    --fs-sm: 0.875rem;
+    --fs-md: 1rem;
+    --fs-lg: 1.25rem;
+    --fs-xl: 2rem;
+
+    --fw-normal: 400;
+    --fw-medium: 500;
+    --fw-bold: 700;
+
+    --line-height: 1.5;
+
+    /* =============== SPACING =============== */
+
+    --space-xs: 0.25rem;
+    --space-sm: 0.5rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 2rem;
+
+    /* =============== BORDER RADIUS =============== */
+
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
+    --radius-full: 999px;
+
+    /* =============== TRANSITIONS =============== */
+
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+
 }
 
 body {
@@ -10,6 +87,169 @@ body {
     justify-content: center;
     align-items: center;
     font-family: sans-serif;
-    background-color: #f5f5f5;
-    color: #333;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    font-family: var(--font-main);
+    padding: var(--space-lg);
+
+
+}
+
+main {
+    width: 100%;
+    max-width: 420px;
+    background-color: var(--bg-card);
+    padding: var(--space-lg);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-main);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 30px;
+
+}
+
+form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+
+}
+
+.field {
+    gap: var(--space-sm);
+    color: var(--text-secondary);
+    font-weight: var(--fw-medium);
+}
+
+
+input {
+
+    width: 100%;
+    padding: .9rem 1rem;
+    background-color: var(--bg-input);
+    color: var(--text-main);
+
+    border: var(--border);
+    border-radius: var(--radius-md);
+
+    font-size: var(--fs-md);
+    outline: none;
+
+    transition: background-color var(--transition-fast),
+        border-color var(--transition-fast),
+        box-shadow var(--transition-fast);
+
+
+}
+
+
+input::placeholder {
+    color: var(--text-muted);
+}
+
+
+input:focus {
+    background-color: var(--bg-input-focus);
+    border-color: var(--border-focus);
+    box-shadow: var(--shadow-focus);
+}
+
+
+input.valid {
+    border-color: var(--success);
+}
+
+input.invalid {
+    border-color: var(--error);
+}
+
+
+.error {
+    color: var(--error);
+    font-size: var(--fs-xs);
+    min-height: 14px;
+}
+
+
+button {
+    margin-top: var(--space-sm);
+
+    padding: 1rem;
+
+    border: none;
+    border-radius: var(--radius-md);
+
+    background-color: var(--primary);
+    color: white;
+
+    font-size: var(--fs-md);
+    font-weight: var(--fw-bold);
+
+    cursor: pointer;
+
+    transition:
+        background-color var(--transition-fast),
+        transform var(--transition-fast);
+}
+
+button:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+/* title */
+h1 {
+    font-size: var(--fs-xl);
+    font-weight: var(--fw-bold);
+    margin-bottom: var(--space-sm);
+}
+
+/* optional subtle top accent */
+main::before {
+    content: "";
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 5px;
+
+    background: linear-gradient(90deg,
+            var(--primary),
+            var(--primary-light));
+
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+main {
+    position: relative;
+}
+
+
+
+
+
+
+
+
+input.valid {
+    border-color: #22c55e;
+}
+
+input.invalid {
+    border-color: #ef4444;
+}
+
+.error {
+    color: #ef4444;
+    font-size: 0.8rem;
 }
