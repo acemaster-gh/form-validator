@@ -52,7 +52,7 @@ function validateEmail() {
 function validatePassword() {
     
     if (DOM.password.value.length < 8){
-        DOM.confirmError.textContent = 'Password should be at least 8 characters.';
+        DOM.passwordError.textContent = 'Password should be at least 8 characters.';
         return false;
     }
 
@@ -81,11 +81,30 @@ DOM.confirmPassword.addEventListener('input', validateConfirmPassword);
 DOM.form.addEventListener('submit', (e) => {
   e.preventDefault();
   
+
+     if (
+        DOM.username.value.trim() === '' ||
+        DOM.email.value.trim() === '' ||
+        DOM.password.value.trim() === '' ||
+        DOM.confirmPassword.value.trim() === ''
+    ) {
+
+        DOM.successMessage.textContent =
+            '⚠️ Please fill all the fields';
+
+        DOM.successMessage.style.color =
+            'var(--warning)';
+
+        return;
+    }
+
   const valid = validateUsername() && validateEmail() && validatePassword() && validateConfirmPassword();
   
   if (valid) {
    DOM.successMessage.textContent =
             '✅ Account created successfully!';
+             DOM.successMessage.style.color =
+            'var(--success)';
               DOM.form.reset();
 
       
